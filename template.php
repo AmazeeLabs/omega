@@ -313,22 +313,6 @@ function omega_theme_registry_alter(&$registry) {
         // Name of the function (theme hook or theme function).
         $function = $type == 'theme' ? $key . '_' . $hook : $key . '_' . $type . '_' . $hook;
 
-        // Make sure we don't run into any fatal errors by including any
-        // include file for a (pre)process or theme function if the same hook
-        // has already been implemented in template.php or anywhere else.
-        if (($type == 'theme' && isset($registry[$hook]['function']) && $registry[$hook]['function'] == $function) || ($type != 'theme' && in_array($function, $registry[$hook][$type . ' functions']))) {
-          // Notify the administrator about this clash through watchdog.
-          watchdog('omega', 'There are two declarations of %function in the %theme theme for the %hook %type hook. Therefore, the include file %file was skipped.', array(
-            '%function' => $function,
-            '%theme' => $theme,
-            '%hook' => $hook,
-            '%type' => $type,
-            '%file' => $item->uri,
-          ));
-
-          //continue;
-        }
-
         // Furthermore, we don't want to re-override sub-theme template file or
         // theme function overrides with theme functions from include files
         // defined in a lower-level base theme. Without this check this would
