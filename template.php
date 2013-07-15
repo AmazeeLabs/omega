@@ -326,7 +326,7 @@ function omega_theme_registry_alter(&$registry) {
             '%file' => $item->uri,
           ));
 
-          continue;
+          //continue;
         }
 
         // Furthermore, we don't want to re-override sub-theme template file or
