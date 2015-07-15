@@ -614,10 +614,14 @@ function omega_page_alter(&$page) {
  * Implements hook_html_head_alter().
  */
 function omega_html_head_alter(&$head) {
-  // Simplify the meta tag for character encoding.
-  $head['system_meta_content_type']['#attributes'] = array(
-    'charset' => str_replace('text/html; charset=', '', $head['system_meta_content_type']['#attributes']['content']),
-  );
+  // Don't alter the drupal default tag if conditional classes get added as
+  // this leads to invalid markup.
+  if (!(omega_extension_enabled('compatibility') && omega_theme_get_setting('omega_conditional_classes_html', TRUE))) {
+    // Simplify the meta tag for character encoding.
+    $head['system_meta_content_type']['#attributes'] = array(
+      'charset' => str_replace('text/html; charset=', '', $head['system_meta_content_type']['#attributes']['content']),
+    );
+  }
 }
 
 /**
