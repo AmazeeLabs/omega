@@ -484,6 +484,17 @@ function omega_theme_registry_alter(&$registry) {
         // include file for a (pre)process or theme function if the same hook
         // has already been implemented in template.php or anywhere else.
         if (($type == 'theme' && isset($registry[$hook][$map]) && $registry[$hook][$map] == $callback) || ($type != 'theme' && in_array($callback, $registry[$hook][$map]))) {
+          // Start of debugging message.
+          ob_start();
+          echo '<pre>';
+          $debug = debug_backtrace();
+          foreach ($debug as $key => $value) {
+            unset($debug[$key]['args'], $debug[$key]['object']);
+          }
+          print_r($debug);
+          $output = ob_get_clean();
+          watchdog('omega', 'Theme registry bug for function: ' . $callback . '. Backtrace: ' . $output, NULL, WATCHDOG_CRITICAL);
+          // End of debugging message.
           // Notify the administrator about this clash through watchdog.
           watchdog('omega', 'There are two declarations of %function in the %theme theme for the %hook %type hook. Therefore, the include file %file was skipped.', array(
             '%function' => $callback,
