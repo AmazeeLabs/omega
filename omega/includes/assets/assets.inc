@@ -40,7 +40,7 @@ function omega_extension_assets_theme_registry_alter(&$registry) {
  * Extension callback for attaching enabled libraries.
  */
 function omega_extension_assets_attach_libraries(&$variables) {
-  $registry = theme_get_registry();
+  $registry = theme_get_registry(FALSE);
 
   // Check if there are any enabled libraries.
   $libraries = module_exists('devel_themer') ? $registry['html']['original']['libraries'] : $registry['html']['libraries'];
