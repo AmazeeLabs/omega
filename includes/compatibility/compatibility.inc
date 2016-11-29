@@ -78,6 +78,8 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
     $meta = array(
       '#tag' => 'meta',
       '#attributes' => array('http-equiv' => 'cleartype', 'content' => 'on'),
+      '#prefix' => '<!--[if (IEMobile)]>',
+      '#suffix' => '<![endif]-->',
     );
 
     drupal_add_html_head($meta, 'omega-cleartype');
