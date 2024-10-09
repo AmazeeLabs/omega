@@ -24,6 +24,8 @@ class OmegaThemeRegistryHandler {
    */
   protected $theme;
 
+  protected $trail;
+
   /**
    * Constructs a OmegaThemeRegistryHandler object.
    *
